@@ -1,0 +1,35 @@
+name: 'build' 
+on: # rebuild any PRs and main branch changes
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout (GitHub)
+        uses: actions/checkout@v4
+      # https://github.com/docker/login-action  使用说明
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3 
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and run Dev Container task
+        uses: devcontainers/ci@v0.3
+        with:
+          # 所有的选项： https://github.com/devcontainers/ci/blob/main/docs/github-action.md 中 inputs
+          # 必要字段，定义推送的镜像名称 ghcr.io/<用户>/<自定义镜像名称>
+          imageName: ghcr.io/eviljoker/codespace_templates
+          # 保证没有codespace 镜像时，也能构建成功
+          noCache: true
+          #  自定义在 devcontainer 中执行的命令
+          runCmd: |
+            # Add multiple commands to run if needed
+            echo hello
+            #make ci-build

@@ -1,0 +1,26 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
+	"name": "front",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "ghcr.io/eviljoker/codespace_template:latest",
+	"containerEnv": {
+		"https_proxy": "${localEnv:https_proxy}",
+		"http_proxy": "${localEnv:http_proxy}",
+		"no_proxy": "${localEnv:no_proxy}",
+		"all_proxy": "${localEnv:all_proxy}",
+		"ftp_proxy": "${localEnv:ftp_proxy}"
+	},
+	"postStartCommand": "echo hello world",
+	"runArgs": [
+		"--network",
+		"host"
+	],
+	"remoteUser": "root",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+			]
+		}
+	}
+}
