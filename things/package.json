@@ -18,7 +18,15 @@
         "command": "things.helloWorld",
         "title": "Hello World"
       }
-    ]
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "todoTree",
+          "name": "todoTree1"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
