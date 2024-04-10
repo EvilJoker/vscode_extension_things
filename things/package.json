@@ -9,10 +9,18 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [
-  ],
+  "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "things",
+          "title": "things",
+          "icon": "$(notebook)"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "things.helloWorld",
@@ -20,10 +28,11 @@
       }
     ],
     "views": {
-      "explorer": [
+      "things": [
         {
-          "id": "todoTree",
-          "name": "todoTree1"
+          "id": "todotree",
+          "name": "todo",
+          "title": "todo"
         }
       ]
     }

@@ -22,7 +22,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(disposable);
 	// 注册treeview
-	let todoTreeDisposable  = vscode.window.registerTreeDataProvider('todoTree', new TodoTreeViewProvider());
+	let todoTreeDisposable  = vscode.window.registerTreeDataProvider('todotree', new TodoTreeViewProvider());
 	context.subscriptions.push(todoTreeDisposable);
 }
 
