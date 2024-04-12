@@ -25,8 +25,24 @@
       {
         "command": "things.helloWorld",
         "title": "Hello World"
+      },
+      {
+        "command": "things.todolist.refresh",
+        "title": "refresh",
+        "icon": "$(refresh)"
+
       }
     ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "things.todolist.refresh",
+          "when": "view == things.todolist",
+          "group": "navigation"
+        }
+      ]
+    }
+    ,
     "views": {
       "things": [
         {

@@ -74,7 +74,8 @@ class JsonPersist {
     // 增删改查方法
 
     static getItems(type: string): ItemStruct[] {
-        return JsonPersist.getInstance().items.filter(item=> item.meta_type === type);
+        // return JsonPersist.getInstance().items.filter(item=> item.meta_type === type);
+        return JsonPersist.deserializeFromFile();
     }
 }
 

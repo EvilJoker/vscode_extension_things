@@ -21,9 +21,10 @@ export function activate(context: vscode.ExtensionContext) {
 
 
 	context.subscriptions.push(disposable);
-	// 注册treeview
-	let todolistDisposable  = vscode.window.registerTreeDataProvider('things.todolist', new TodoTreeViewProvider());
-	context.subscriptions.push(todolistDisposable);
+
+	registryTodoList(context);
+
+	// 注册其余treeview
 	let repositoryDisposable  = vscode.window.registerTreeDataProvider('things.repository', new TodoTreeViewProvider());
 	context.subscriptions.push(repositoryDisposable);
 	let enviromentDisposable  = vscode.window.registerTreeDataProvider('things.enviroment', new TodoTreeViewProvider());
@@ -33,4 +34,18 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 // This method is called when your extension is deactivated
+
+function registryTodoList(context: vscode.ExtensionContext){
+	let todoListProvider = new TodoTreeViewProvider();
+	// 注册treeview
+	let todolistDisposable  = vscode.window.registerTreeDataProvider('things.todolist', todoListProvider);
+	context.subscriptions.push(todolistDisposable);
+
+	let refreshCommandDisposable = vscode.commands.registerCommand('things.todolist.refresh', () => {
+		todoListProvider.refresh();
+	});
+	context.subscriptions.push(refreshCommandDisposable);
+
+
+}
 export function deactivate() {}
