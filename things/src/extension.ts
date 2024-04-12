@@ -1,7 +1,7 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import { TodoTreeViewProvider } from './todotree';
+import { TodoTreeViewProvider } from './domain/todo/todotree';
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
@@ -22,8 +22,14 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(disposable);
 	// 注册treeview
-	let todoTreeDisposable  = vscode.window.registerTreeDataProvider('todotree', new TodoTreeViewProvider());
-	context.subscriptions.push(todoTreeDisposable);
+	let todolistDisposable  = vscode.window.registerTreeDataProvider('things.todolist', new TodoTreeViewProvider());
+	context.subscriptions.push(todolistDisposable);
+	let repositoryDisposable  = vscode.window.registerTreeDataProvider('things.repository', new TodoTreeViewProvider());
+	context.subscriptions.push(repositoryDisposable);
+	let enviromentDisposable  = vscode.window.registerTreeDataProvider('things.enviroment', new TodoTreeViewProvider());
+	context.subscriptions.push(enviromentDisposable);
+	let actionDisposable  = vscode.window.registerTreeDataProvider('things.action', new TodoTreeViewProvider());
+	context.subscriptions.push(actionDisposable);
 }
 
 // This method is called when your extension is deactivated

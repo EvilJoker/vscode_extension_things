@@ -30,9 +30,24 @@
     "views": {
       "things": [
         {
-          "id": "todotree",
+          "id": "things.todolist",
           "name": "todo",
           "title": "todo"
+        },
+        {
+          "id": "things.repository",
+          "name": "repository",
+          "title": "repository"
+        },
+        {
+          "id": "things.enviroment",
+          "name": "enviroment",
+          "title": "enviroment"
+        },
+        {
+          "id": "things.action",
+          "name": "action",
+          "title": "action"
         }
       ]
     }
