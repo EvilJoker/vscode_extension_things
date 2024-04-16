@@ -23,6 +23,11 @@ class TodoItem extends vscode.TreeItem {
     ) {
         super(label, collapsibleState);
         this.item = todoitem;
+        if(todoitem){
+            this.tooltip = `name: ${todoitem.meta_name}\ndescribe: ${todoitem.meta_show}\n`;
+        }
+        
+
     }
     static create(struct: TodoItemStrut | ItemStruct): TodoItem {
         if (struct instanceof TodoItemStrut) {
