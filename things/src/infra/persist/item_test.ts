@@ -13,7 +13,7 @@ const items2: ItemStruct[] = [
 ];
 
 
-JsonPersist.serializeToFile(items);
+// JsonPersist.serializeToFile(items);
 
 const loadedItems = JsonPersist.deserializeFromFile();
 // console.log(loadedItems);

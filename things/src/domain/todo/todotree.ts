@@ -14,23 +14,32 @@ class TodoItemStrut extends ItemStruct {
 
 // 定义 item
 class TodoItem extends vscode.TreeItem {
+    private item: TodoItemStrut|null = null;
     constructor(
+        public readonly todoitem: TodoItemStrut|null,
         public readonly label: string,
         public readonly collapsibleState: vscode.TreeItemCollapsibleState,
         public readonly command?: vscode.Command
     ) {
         super(label, collapsibleState);
+        this.item = todoitem;
     }
     static create(struct: TodoItemStrut | ItemStruct): TodoItem {
         if (struct instanceof TodoItemStrut) {
-            return new TodoItem(struct.meta_show, vscode.TreeItemCollapsibleState.None);
+            return new TodoItem(struct, struct.meta_show, vscode.TreeItemCollapsibleState.None);
         } else {
 
             let todoItemStruct = new TodoItemStrut(struct.id, struct.meta_name, struct.meta_show, struct.info);
-            return new TodoItem(todoItemStruct.meta_show, vscode.TreeItemCollapsibleState.None);
+            return new TodoItem(struct, todoItemStruct.meta_show, vscode.TreeItemCollapsibleState.None);
         }
 
-
+    }
+    contextValue = 'things.todolist.item';
+    getItemId(): number|null {
+        if (this.item === null) {
+            return null;
+        }
+        return this.item.id;
     }
 
     // iconPath: vscode.Uri.file(path.join(__filename, '..', '..', 'resources', 'tree-item-icon.svg'))
@@ -64,4 +73,4 @@ class TodoTreeViewProvider implements vscode.TreeDataProvider<TodoItem> {
 
 }
 
-export { TodoTreeViewProvider, TodoItemStrut };
+export { TodoTreeViewProvider, TodoItemStrut, TodoItem};

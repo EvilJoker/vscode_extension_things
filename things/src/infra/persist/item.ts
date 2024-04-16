@@ -43,7 +43,8 @@ class ItemStruct {
 class JsonPersist {
     // 暂时存储到 ~/items.json
     static FILEPATH: string = path.join(os.homedir(), 'items.json');
-    private static instance :JsonPersist;
+    private static instance: JsonPersist;
+    private increaseId: number = 0;// 自增id
     public items: ItemStruct[] = [];
 
     public static getInstance(): JsonPersist {
@@ -58,12 +59,14 @@ class JsonPersist {
             JsonPersist.serializeToFile(this.items);
         }
         this.items = JsonPersist.deserializeFromFile();
+        // 获取最大的 id 值
+        this.increaseId = this.items.reduce((max, item) => {
+            return Math.max(max, item.id);
+        }, 0);
+
     }
 
- 
-
-
-    static serializeToFile(items: ItemStruct[], filePath: string = JsonPersist.FILEPATH) {
+    private static serializeToFile(items: ItemStruct[], filePath: string = JsonPersist.FILEPATH) {
         const serializedItems = items.map(item => item.toJson());
         const json = JSON.stringify(serializedItems, null, 2);
         fs.writeFileSync(filePath, json);
@@ -74,9 +77,21 @@ class JsonPersist {
         // return parsedItems.map((item: ItemStruct) => ItemStruct.fromJson(item)); 简写
         return parsedItems.map(ItemStruct.fromJson);
     }
+    // 原子性
+    async getNextId(): Promise<number> {
+        this.increaseId += 1;
+        return this.increaseId;
+    }
+
     // 增删改查方法
-    static addItems(items: ItemStruct[]){
+    static addItems(items: ItemStruct[]) {
         let persist = JsonPersist.getInstance();
+        // 更新 id
+        items.forEach(item => {
+            persist.getNextId().then(id => {
+                item.id = id;
+            });
+        });
         // 更新内存
         persist.items.push(...items);
         // 写入文件
@@ -85,7 +100,16 @@ class JsonPersist {
     }
 
     static getItems(type: string): ItemStruct[] {
-        return JsonPersist.getInstance().items.filter(item=> item.meta_type === type);
+        return JsonPersist.getInstance().items.filter(item => item.meta_type === type);
+    }
+
+    static removeItems(ids: (number | null)[]) {
+        let persist = JsonPersist.getInstance();
+        // 更新内存
+        persist.items = persist.items.filter(item => !ids.includes(item.id));
+        // 写入文件
+        JsonPersist.serializeToFile(persist.items);
+
     }
 }
 

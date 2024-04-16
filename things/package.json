@@ -37,6 +37,12 @@
         "title": "add",
         "icon": "$(add)"
 
+      },
+      {
+        "command": "things.todolist.remove",
+        "title": "remove",
+        "icon": "$(remove)"
+
       }
     ],
     "menus": {
@@ -50,6 +56,13 @@
           "command": "things.todolist.add",
           "when": "view == things.todolist",
           "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "things.todolist.remove",
+          "when": "view == things.todolist && viewItem == things.todolist.item",
+          "group": "inline"
         }
       ]
     }

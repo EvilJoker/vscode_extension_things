@@ -1,9 +1,10 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import { TodoTreeViewProvider } from './domain/todo/todotree';
+import { TodoItem, TodoTreeViewProvider } from './domain/todo/todotree';
 import { multiStepInput } from './domain/todo/todotree_additem';
 import { TODOPROVIDER } from './infra/constant';
+import { JsonPersist } from './infra/persist/item';
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 
@@ -50,13 +51,20 @@ function registryTodoList(context: vscode.ExtensionContext) {
         todoListProvider.refresh();
     });
     context.subscriptions.push(refreshCommandDisposable);
-    // add 获取输入
+    // 增加
     let addCommandDisposable = vscode.commands.registerCommand('things.todolist.add', async () => {
         multiStepInput(context);
     });
 
     context.subscriptions.push(addCommandDisposable);
-
+    // 删除
+    let removeCommandDisposable = vscode.commands.registerCommand('things.todolist.remove', async (item: TodoItem) => {
+        console.log(item.getItemId());
+        JsonPersist.removeItems([item.getItemId()]);
+        todoListProvider.refresh();
+    });
+    
+    context.subscriptions.push(removeCommandDisposable);
 
 }
 export function deactivate() { }
