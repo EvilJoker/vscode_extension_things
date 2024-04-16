@@ -31,12 +31,23 @@
         "title": "refresh",
         "icon": "$(refresh)"
 
+      },
+      {
+        "command": "things.todolist.add",
+        "title": "add",
+        "icon": "$(add)"
+
       }
     ],
     "menus": {
       "view/title": [
         {
           "command": "things.todolist.refresh",
+          "when": "view == things.todolist",
+          "group": "navigation"
+        },
+        {
+          "command": "things.todolist.add",
           "when": "view == things.todolist",
           "group": "navigation"
         }

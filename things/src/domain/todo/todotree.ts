@@ -5,6 +5,9 @@ import { ItemStruct, JsonPersist } from '../../infra/persist/item';
 class TodoItemStrut extends ItemStruct {
     static TYPE: string = "todolist";
     // 和 ItemStruct 一样暂时保持一致。
+    constructor(id: number, meta_name: string, meta_show: string, info: string) {
+        super(id, TodoItemStrut.TYPE, meta_name, meta_show, info);
+    }
 
 }
 
@@ -23,7 +26,7 @@ class TodoItem extends vscode.TreeItem {
             return new TodoItem(struct.meta_show, vscode.TreeItemCollapsibleState.None);
         } else {
 
-            let todoItemStruct = new TodoItemStrut(struct.id, struct.meta_type, struct.meta_name, struct.meta_show, struct.info);
+            let todoItemStruct = new TodoItemStrut(struct.id, struct.meta_name, struct.meta_show, struct.info);
             return new TodoItem(todoItemStruct.meta_show, vscode.TreeItemCollapsibleState.None);
         }
 
@@ -61,4 +64,4 @@ class TodoTreeViewProvider implements vscode.TreeDataProvider<TodoItem> {
 
 }
 
-export { TodoTreeViewProvider };
+export { TodoTreeViewProvider, TodoItemStrut };

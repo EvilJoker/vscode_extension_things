@@ -20,6 +20,9 @@ class ItemStruct {
         this.meta_show = meta_show;
         this.info = info;
     }
+    toString(): string {
+        return `{name: ${this.meta_name}, show: ${this.meta_show}, info: ${this.info}}`;
+    }
 
     toJson(): Object {
         return {
@@ -72,10 +75,17 @@ class JsonPersist {
         return parsedItems.map(ItemStruct.fromJson);
     }
     // 增删改查方法
+    static addItems(items: ItemStruct[]){
+        let persist = JsonPersist.getInstance();
+        // 更新内存
+        persist.items.push(...items);
+        // 写入文件
+        JsonPersist.serializeToFile(persist.items);
+
+    }
 
     static getItems(type: string): ItemStruct[] {
-        // return JsonPersist.getInstance().items.filter(item=> item.meta_type === type);
-        return JsonPersist.deserializeFromFile();
+        return JsonPersist.getInstance().items.filter(item=> item.meta_type === type);
     }
 }
 
