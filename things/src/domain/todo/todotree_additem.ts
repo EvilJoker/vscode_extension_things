@@ -7,7 +7,7 @@ import { window, ExtensionContext } from 'vscode';
 import { MultiStepInput, State } from '../../infra/ui/quickpick/multiStepInput';
 import { ItemStruct, JsonPersist } from '../../infra/persist/item';
 import { TodoItemStrut, TodoTreeViewProvider } from './todotree';
-import { objectmap } from '../../extension';
+import { OBJECTMAP } from '../../extension';
 import { TODOPROVIDER } from '../../infra/constant';
 /**
  * 
