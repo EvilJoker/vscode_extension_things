@@ -43,6 +43,12 @@
         "title": "remove",
         "icon": "$(remove)"
 
+      },
+      {
+        "command": "things.todolist.update",
+        "title": "update",
+        "icon": "$(pencil)"
+
       }
     ],
     "menus": {
@@ -61,6 +67,11 @@
       "view/item/context": [
         {
           "command": "things.todolist.remove",
+          "when": "view == things.todolist && viewItem == things.todolist.item",
+          "group": "inline"
+        },
+        {
+          "command": "things.todolist.update",
           "when": "view == things.todolist && viewItem == things.todolist.item",
           "group": "inline"
         }

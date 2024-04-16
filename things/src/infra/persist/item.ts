@@ -111,6 +111,14 @@ class JsonPersist {
         JsonPersist.serializeToFile(persist.items);
 
     }
+    // 更新 update
+    static updateItem(item: ItemStruct) {
+        let persist = JsonPersist.getInstance();
+        const index = persist.items.findIndex(elment => elment.id === item.id);
+        persist.items[index] = item;
+        
+        JsonPersist.serializeToFile(persist.items);
+    }
 }
 
 

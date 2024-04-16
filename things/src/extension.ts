@@ -8,7 +8,7 @@ import { JsonPersist } from './infra/persist/item';
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 
-export var objectmap = new Map<string, Object|null|void>();
+export var objectmap = new Map<string, Object | null | void>();
 export function activate(context: vscode.ExtensionContext) {
 
     // Use the console to output diagnostic information (console.log) and errors (console.error)
@@ -53,18 +53,35 @@ function registryTodoList(context: vscode.ExtensionContext) {
     context.subscriptions.push(refreshCommandDisposable);
     // 增加
     let addCommandDisposable = vscode.commands.registerCommand('things.todolist.add', async () => {
-        multiStepInput(context);
+        let item = await multiStepInput(context);
+        // 存储
+        JsonPersist.addItems([item]);
+        // 刷新
+        todoListProvider.refresh();
     });
 
     context.subscriptions.push(addCommandDisposable);
+
     // 删除
     let removeCommandDisposable = vscode.commands.registerCommand('things.todolist.remove', async (item: TodoItem) => {
         console.log(item.getItemId());
         JsonPersist.removeItems([item.getItemId()]);
         todoListProvider.refresh();
     });
-    
+
     context.subscriptions.push(removeCommandDisposable);
+    // 更新
+    let updateCommandDisposable = vscode.commands.registerCommand('things.todolist.update', async (item: TodoItem) => {
+
+        let item_temp = await multiStepInput(context);
+        let id = <number>item.getItemId();
+        item_temp.id = id;
+        JsonPersist.updateItem(item_temp);
+        todoListProvider.refresh();
+
+    });
+
+    context.subscriptions.push(updateCommandDisposable);
 
 }
 export function deactivate() { }

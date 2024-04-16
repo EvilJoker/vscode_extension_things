@@ -5,7 +5,7 @@
 
 import { window, ExtensionContext } from 'vscode';
 import { MultiStepInput, State } from '../../infra/ui/quickpick/multiStepInput';
-import { JsonPersist } from '../../infra/persist/item';
+import { ItemStruct, JsonPersist } from '../../infra/persist/item';
 import { TodoItemStrut, TodoTreeViewProvider } from './todotree';
 import { objectmap } from '../../extension';
 import { TODOPROVIDER } from '../../infra/constant';
@@ -13,7 +13,7 @@ import { TODOPROVIDER } from '../../infra/constant';
  * 
  * 从官方的例子改写
  */
-export async function multiStepInput(context: ExtensionContext) {
+export async function multiStepInput(context: ExtensionContext): Promise<ItemStruct> {
 
     let item = new TodoItemStrut(2, 'default', 'show2', 'info2');
     async function collectInputs() {
@@ -70,10 +70,8 @@ export async function multiStepInput(context: ExtensionContext) {
 
     // 入口 --> 生成 states 状态
     const state = await collectInputs();
-    
+
     window.showInformationMessage(`add item succ '${item.toString()}'`);
-    // 存储
-    JsonPersist.addItems([item]);
-    // 刷新
-    (<TodoTreeViewProvider>objectmap.get(TODOPROVIDER)).refresh();
+    
+    return item;
 }
