@@ -2,13 +2,22 @@
   "name": "things",
   "displayName": "things",
   "description": "record and remind ,simple to use",
-  "version": "0.0.1",
+  "version": "1.0.1",
+  "publisher": "AshtonSun",
   "engines": {
     "vscode": "^1.88.0"
   },
   "categories": [
     "Other"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EvilJoker/vscode_extension_things.git"
+  },
+  "bugs": {
+    "url": "https://github.com/EvilJoker/vscode_extension_things/issues"
+  },
+  "homepage": "https://github.com/EvilJoker/vscode_extension_things/tree/main/things",
   "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
@@ -30,25 +39,21 @@
         "command": "things.todolist.refresh",
         "title": "refresh",
         "icon": "$(refresh)"
-
       },
       {
         "command": "things.todolist.add",
         "title": "add",
         "icon": "$(add)"
-
       },
       {
         "command": "things.todolist.remove",
         "title": "remove",
         "icon": "$(remove)"
-
       },
       {
         "command": "things.todolist.update",
         "title": "update",
         "icon": "$(pencil)"
-
       }
     ],
     "menus": {
@@ -76,8 +81,7 @@
           "group": "inline"
         }
       ]
-    }
-    ,
+    },
     "views": {
       "things": [
         {
