@@ -6,12 +6,12 @@
 
 ### 展示待办事项
 
-![todo_show](resources/introduce/feature_todo_show.png)
+![todo_show](things/resources/introduce/feature_todo_show.png)
 
 ### 添加&编辑，待办事项
 从 + 或者 "编辑按钮"进入
 
-![todo_add](resources/introduce/feature_todo_add_update.png)
+![todo_add](things/resources/introduce/feature_todo_add_update.png)
 
 
 ## Requirements
